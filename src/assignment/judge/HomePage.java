@@ -88,6 +88,11 @@ public class HomePage extends javax.swing.JFrame {
         jLabel3.setText("Assignmnent Submission Downloader");
 
         jTextField5.setEditable(false);
+        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField5ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Select Folder to Download");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -176,8 +181,6 @@ public class HomePage extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTextField1.getAccessibleContext().setAccessibleDescription("");
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -214,6 +217,10 @@ public class HomePage extends javax.swing.JFrame {
             File file = fileChooser.getSelectedFile();
             jTextField5.setText(""+file.getAbsolutePath());
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField5ActionPerformed
 
     /**
      * @param args the command line arguments

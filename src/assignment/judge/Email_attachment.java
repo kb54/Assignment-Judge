@@ -141,7 +141,7 @@ public class Email_attachment{
     /**
      * Runs this program with Gmail POP3 server
      */
-   public static void main(String[] args) {
+   /*public static void main(String[] args) {
         String host = "pop.gmail.com";
         String port = "995";
         String userName = "dummymailqwert@gmail.com";
@@ -150,5 +150,5 @@ public class Email_attachment{
         Email_attachment receiver = new Email_attachment();
         receiver.setSaveDirectory(saveDirectory);
         receiver.downloadEmailAttachments(host, port, userName, password);
-    }
+    }*/
 }
