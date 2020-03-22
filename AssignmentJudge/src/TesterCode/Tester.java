@@ -1,10 +1,8 @@
 package TesterCode;
 
-import java.io.BufferedReader;
+
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+
 
 import javax.swing.JLabel;
 
@@ -21,45 +19,36 @@ public class Tester {
 	
 
 	
-	private void runProcess(String command, String arg) throws Exception {
+	private void runProcess(String command, String arg, File folder) throws Exception {
 		    ProcessBuilder pro = new ProcessBuilder(command, arg);
+		    pro.directory(folder);
 		    pro.redirectInput(inputFile);
-		    Process p =pro.start();
-		    
-		    BufferedReader reader = 
-	                new BufferedReader(new InputStreamReader(p.getInputStream()));
-		    StringBuilder builder = new StringBuilder();
-		    String line = null;
-		    while ( (line = reader.readLine()) != null) {
-		    		builder.append(line);
-		    		builder.append(System.getProperty("line.separator"));
-		    }
-		    
+		    pro.redirectOutput(outputFile);
+		    Process p = pro.start();
 		    p.waitFor();
-		    String result = builder.toString();
-		    System.out.println("Result: " + result);
 	}
 	
 	public void evaluate(JLabel messageText) {
 		inputFile = new File(workingDirectory, "testCases.txt");
 		outputFile = new File(workingDirectory, "programOutput.txt");
-		final File folder = new File(workingDirectory + "downloadedAssignments");
+		final File folder = new File(workingDirectory);
 		for(final File file: folder.listFiles()) {
-			String filePath = file.getAbsolutePath();
+			String fileName = file.getName();
 			int index;
-			if((index = filePath.indexOf(".java")) < 0)
+			if((index = fileName.indexOf(".java")) < 0)
 				continue;
-			String filePathWithoutExtension = filePath.substring(0, index);
-			System.out.println(filePathWithoutExtension);
+			
+			String fileNameWithoutExtension = fileName.substring(0, index);
 			try {
 		    	messageText.setText("Executing " + file.getName()); 
-		        runProcess("javac", filePath);		        
-		        runProcess("java", filePathWithoutExtension);
+		        runProcess("javac", fileName, folder);		        
+		        runProcess("java", fileNameWithoutExtension, folder);
 		      } 
 		    
 		    catch (Exception e) {
 		        messageText.setText(e.getMessage());
 		   }
+			
 		}
 	}
 	
