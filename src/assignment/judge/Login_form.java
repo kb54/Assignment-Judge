@@ -93,6 +93,7 @@ public class Login_form extends javax.swing.JFrame {
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 380, 10));
 
         passinp.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        passinp.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         passinp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 passinpActionPerformed(evt);
@@ -101,6 +102,7 @@ public class Login_form extends javax.swing.JFrame {
         getContentPane().add(passinp, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 390, 240, 40));
 
         emailinp.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        emailinp.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         emailinp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 emailinpActionPerformed(evt);
