@@ -1,0 +1,72 @@
+package assignmentjudge;
+
+import java.io.*;
+
+//import javax.swing.JLabel;
+
+
+public class BuildTestCaseFile {
+	
+	private static String testCaseFileName;
+	private static String expectedOutputFileName;
+	private static String programOutputFileName;
+	private static String resultCSVFileName;
+	
+	public static String getTestCaseFileName() {return testCaseFileName;}
+	
+	public static String getExpectedOutputFileName() {return expectedOutputFileName;}
+	
+	public static String getProgramOutputFileName() {return programOutputFileName;}
+	
+	public static String getCSVFileName() {return resultCSVFileName;}
+	@SuppressWarnings("resource")
+        // removing messageLabel from nimish's code
+	boolean createFiles(String testCaseFileName, String expectedOutputFileName, String programOutputFileName, String resultCSVFileName ,String testCases, String expectedOutputs) {
+		BuildTestCaseFile.testCaseFileName = testCaseFileName;
+		BuildTestCaseFile.expectedOutputFileName = expectedOutputFileName;
+		BuildTestCaseFile.programOutputFileName = programOutputFileName;
+		BuildTestCaseFile.resultCSVFileName = resultCSVFileName;
+		FileOutputStream testCasesStream;
+		FileOutputStream expectedOutputStream;
+		try {
+                        // added back slash so as to make a valid absolutepath
+			testCasesStream = new FileOutputStream(AssignmentJudge.workingDirectory + "\\" + testCaseFileName, true);
+			expectedOutputStream = new FileOutputStream(AssignmentJudge.workingDirectory + "\\" +  expectedOutputFileName, true);
+			new FileOutputStream(AssignmentJudge.workingDirectory + "\\" + programOutputFileName, true);
+			new FileOutputStream(AssignmentJudge.workingDirectory + "\\" + resultCSVFileName, true);
+			boolean writeResult = writeToFiles(testCases, expectedOutputs, testCasesStream, expectedOutputStream);
+			testCasesStream.close();
+			expectedOutputStream.close();
+			return writeResult;
+		}
+		
+		catch(Exception e) {
+			//messageLabel.setText("Error in file creation");
+			return false;
+		}
+	}
+	
+	private boolean writeToFiles(String testCases, String expectedOutputs, FileOutputStream testCasesStream, FileOutputStream expectedOutputStream) {
+
+		try {
+			int ch;
+			for(int i = 0; i < testCases.length(); i++) {
+				ch = testCases.charAt(i);
+				testCasesStream.write(ch);
+			}
+			
+			for(int i = 0; i < expectedOutputs.length(); i++) {
+				ch = expectedOutputs.charAt(i);
+				expectedOutputStream.write(ch);
+			}
+			testCasesStream.close();
+			expectedOutputStream.close();
+			return true;
+		}
+		
+		catch(Exception e) {
+			//messageLabel.setText("Error writing to files");
+			return false;
+		}
+	}
+}
