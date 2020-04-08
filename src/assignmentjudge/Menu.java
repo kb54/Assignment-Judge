@@ -43,40 +43,6 @@ public class Menu extends javax.swing.JFrame {
         initComponents();
         
     }
-    // These two methods are overloaed(method overloading)
-    
-    
-    /**
-    * @param URI stands for "Uniform Resource Identifier (superset of URL)"
-    * It can be name or address
-    */
-    private static boolean openWebpage(URI uri) {
-    Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
-    if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
-        try {
-            desktop.browse(uri);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    return false;
-    }
-    
-    
-    /**
-    * @param URL stands for "Uniform Resource Locator (superset of URL)"
-    * It represents name
-    */
-    private static boolean openWebpage(URL url) {
-        try {
-            return openWebpage(url.toURI());
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-    return false;
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -484,6 +450,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
          new About_us().setVisible(true);
+         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -493,7 +460,7 @@ public class Menu extends javax.swing.JFrame {
         } catch (MalformedURLException ex) {
             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
         }
-        openWebpage(url);
+        Browse.openWebpage(url);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed

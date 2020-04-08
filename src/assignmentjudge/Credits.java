@@ -5,6 +5,8 @@
  */
 package assignmentjudge;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author Sunil
@@ -27,21 +29,63 @@ public class Credits extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        exiticn = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 512, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 433, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(102, 102, 102));
+        setUndecorated(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        exiticn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/close_1.png"))); // NOI18N
+        exiticn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                exiticnMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                exiticnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                exiticnMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                exiticnMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                exiticnMouseReleased(evt);
+            }
+        });
+        getContentPane().add(exiticn, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 0, 40, -1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Acknowledgement.jpeg"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void exiticnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exiticnMouseClicked
+        this.dispose();
+    }//GEN-LAST:event_exiticnMouseClicked
+
+    private void exiticnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exiticnMouseEntered
+        ImageIcon icn = new ImageIcon(getClass().getResource("/resources/closeho.png"));
+        exiticn.setIcon(icn);
+    }//GEN-LAST:event_exiticnMouseEntered
+
+    private void exiticnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exiticnMouseExited
+        ImageIcon icn = new ImageIcon(getClass().getResource("/resources/close_1.png"));
+        exiticn.setIcon(icn);
+    }//GEN-LAST:event_exiticnMouseExited
+
+    private void exiticnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exiticnMousePressed
+        ImageIcon icn = new ImageIcon(getClass().getResource("/resources/closec.png"));
+        exiticn.setIcon(icn);
+    }//GEN-LAST:event_exiticnMousePressed
+
+    private void exiticnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exiticnMouseReleased
+
+    }//GEN-LAST:event_exiticnMouseReleased
 
     /**
      * @param args the command line arguments
@@ -79,5 +123,7 @@ public class Credits extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel exiticn;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

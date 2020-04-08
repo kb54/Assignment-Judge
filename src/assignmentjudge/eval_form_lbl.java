@@ -66,6 +66,7 @@ public class eval_form_lbl extends javax.swing.JFrame {
         Tester test = new Tester();
         test.evaluate(statuslbl);
         JOptionPane.showMessageDialog(null, "Evaluation Completed!");
+        this.dispose();
     }//GEN-LAST:event_formWindowOpened
 
     /**
