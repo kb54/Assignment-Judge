@@ -5,6 +5,14 @@
  */
 package assignmentjudge;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Sunil
@@ -14,8 +22,11 @@ public class Cumulative_Report extends javax.swing.JFrame {
     /**
      * Creates new form Cumulative_Report
      */
+    private int xpos;
+    private int ypos;
     public Cumulative_Report() {
         initComponents();
+        setBackground(new java.awt.Color(0, 0, 0, 0));
     }
 
     /**
@@ -27,21 +38,150 @@ public class Cumulative_Report extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jScrollPane1 = new javax.swing.JScrollPane();
+        DataTable = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel6 = new javax.swing.JLabel();
+        exiticn = new javax.swing.JLabel();
+        backgroundlbl = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        DataTable.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        DataTable.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        DataTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Registation Number", "Assignments Submitted", "Total Score obtained "
+            }
+        ));
+        DataTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        DataTable.setName(""); // NOI18N
+        jScrollPane1.setViewportView(DataTable);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 840, 480));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Assignment Judge");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 0, -1, -1));
+        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 920, 10));
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI Light", 1, 24)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Cumulative Report");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 50, 220, 30));
+
+        exiticn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/close_1.png"))); // NOI18N
+        exiticn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                exiticnMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                exiticnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                exiticnMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                exiticnMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                exiticnMouseReleased(evt);
+            }
+        });
+        getContentPane().add(exiticn, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 0, -1, -1));
+
+        backgroundlbl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/background(bg3).png"))); // NOI18N
+        backgroundlbl.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                backgroundlblMouseDragged(evt);
+            }
+        });
+        backgroundlbl.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backgroundlblMouseClicked(evt);
+            }
+        });
+        getContentPane().add(backgroundlbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 580));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void exiticnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exiticnMouseClicked
+        this.dispose();
+    }//GEN-LAST:event_exiticnMouseClicked
+
+    private void exiticnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exiticnMouseEntered
+        ImageIcon icn = new ImageIcon(getClass().getResource("/resources/closeho.png"));
+        exiticn.setIcon(icn);
+    }//GEN-LAST:event_exiticnMouseEntered
+
+    private void exiticnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exiticnMouseExited
+        ImageIcon icn = new ImageIcon(getClass().getResource("/resources/close_1.png"));
+        exiticn.setIcon(icn);
+    }//GEN-LAST:event_exiticnMouseExited
+
+    private void exiticnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exiticnMousePressed
+        ImageIcon icn = new ImageIcon(getClass().getResource("/resources/closec.png"));
+        exiticn.setIcon(icn);
+    }//GEN-LAST:event_exiticnMousePressed
+
+    private void exiticnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exiticnMouseReleased
+
+    }//GEN-LAST:event_exiticnMouseReleased
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        DefaultTableModel model = (DefaultTableModel)
+       DataTable.getModel();
+       try {
+           Class.forName("java.sql.DriverManager");
+        Connection con=(Connection)DriverManager.getConnection("jdbc:mysql://localhost:3306/Assignment_Judge","root","bharat");
+        Statement bk=(Statement) con.createStatement();
+        String query="Select * from report;";
+        ResultSet rs=bk.executeQuery(query);
+        while(rs.next()) {
+         String RegistrationNumber = rs.getString("reg_no");
+         String Assignments = rs.getString("assignment_no");
+         int score = rs.getInt("score_obtained");
+         model.addRow(new Object[]{RegistrationNumber, Assignments, score});
+        }
+       }
+       catch(Exception e){
+           JOptionPane.showMessageDialog(this, e.getMessage());
+       }
+    }//GEN-LAST:event_formWindowOpened
+
+    private void backgroundlblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backgroundlblMouseClicked
+        xpos = evt.getX();
+        ypos = evt.getY();
+    }//GEN-LAST:event_backgroundlblMouseClicked
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+
+    }//GEN-LAST:event_formMouseClicked
+
+    private void backgroundlblMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backgroundlblMouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xpos, y - ypos);
+    }//GEN-LAST:event_backgroundlblMouseDragged
 
     /**
      * @param args the command line arguments
@@ -52,7 +192,7 @@ public class Cumulative_Report extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
+        /*try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
@@ -67,7 +207,7 @@ public class Cumulative_Report extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Cumulative_Report.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Cumulative_Report.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        }/*
         //</editor-fold>
 
         /* Create and display the form */
@@ -79,5 +219,12 @@ public class Cumulative_Report extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable DataTable;
+    private javax.swing.JLabel backgroundlbl;
+    private javax.swing.JLabel exiticn;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 }

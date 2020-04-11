@@ -12,11 +12,20 @@ import javax.swing.JLabel;
 
 //import GUI.MainGUI;
 import UnitTester.UnitTestRunner;
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.Statement;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 //import GUI.BuildTestCaseFile;
 public class Tester {
 	
 	private File inputFile;
 	private File expectedOutputFile;
+        private File scoresFile;
 	private File outputFile;
 	private File CSVResultFile;
 	private void runProcess(String command, String arg, File folder) throws Exception {
@@ -35,6 +44,7 @@ public class Tester {
 			outputFile = new File(AssignmentJudge.workingDirectory, BuildTestCaseFile.getProgramOutputFileName());
 			expectedOutputFile = new File(AssignmentJudge.workingDirectory, BuildTestCaseFile.getExpectedOutputFileName());
 			CSVResultFile = new File(AssignmentJudge.workingDirectory, BuildTestCaseFile.getCSVFileName());
+                        scoresFile = new File(AssignmentJudge.workingDirectory, BuildTestCaseFile.getscoresFileName());
 			writeCSVHeader(messageText);
 			String errorMessage = "";
 			
@@ -42,6 +52,7 @@ public class Tester {
 			if(!outputFile.exists()) errorMessage += "Program output file. ";
 			if(!expectedOutputFile.exists()) errorMessage +=  "Expected output file. ";
 			if(!CSVResultFile.exists()) errorMessage += "Results CSV file. ";
+                        if(!scoresFile.exists()) errorMessage += "Scores file. ";
 			
 			messageText.setText("Non existent files: " + errorMessage);
 			
@@ -109,7 +120,7 @@ public class Tester {
 			messageText.setText(e.getMessage());
 		}
 	}
-	
+        
 	
 	private void writeResults(JLabel messageText, String assignment, String registrationNumber, int failedTestCases, String summary) {
 		try {
@@ -130,27 +141,87 @@ public class Tester {
 			messageText.setText(e.getMessage());
 		}
 	}
+        
+        
+        private void updateTable(JLabel messageText, String assignment, String registrationNumber, int scoreobtained) {
+                String  url = "jdbc:mysql://localhost:3306/";
+                String dbName = "Assignment_Judge";
+                String driver = "java.sql.DriverManager";
+                String sqlUsername = "root"; 
+                String sqlPassword = "bharat";
+                try {
+                    Class.forName(driver);
+                    Connection con = (Connection)DriverManager.getConnection(url + dbName, sqlUsername, sqlPassword);
+                    Statement st = (Statement) con.createStatement();
+                    // fetching number from the Assignment(num)
+                    int idx = assignment.indexOf('t');
+                    String idx_str = assignment.substring(idx + 1);
+                    boolean find_record = false;
+                    String query_search = "Select reg_no from report;";
+                    ResultSet rs = st.executeQuery(query_search);
+                    while(rs.next()) {
+                        if(rs.getString("reg_no").equals(registrationNumber)) {
+                            find_record = true;
+                            break;
+                        }
+                    }
+                    rs.close();
+                    if(!find_record) {
+                        String query_insert = "Insert into report values('"+registrationNumber+"', '"+idx_str+"', '"+scoreobtained+"');";
+                        st.executeUpdate(query_insert);
+                        messageText.setText("Results stored successfully");
+                    }
+                    else {
+                        String query_update = "Update report set score_obtained = score_obtained + ?, assignment_no = ? where reg_no = ?";
+                        try (PreparedStatement stmt = con.prepareStatement(query_update)) {
+                            stmt.setInt(1, scoreobtained);
+                            stmt.setString(2, ", " + idx_str);
+                            stmt.setString(3, registrationNumber);
+                            stmt.executeUpdate();
+                        }
+                    }
+                    con.close();
+                }
+                catch(SQLException e) {
+                    messageText.setText("Failure in ");
+                } catch (ClassNotFoundException ex) 
+                {
+                Logger.getLogger(Tester.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        }
+        
 	
 	private void generateScore(JLabel messageText, String fileName) {
 		int failedTestCases = 0;
+                int scoreobtained = 0;
 		FileReader expectedOutputReader = null;
 		FileReader programOutputReader = null;
+                FileReader scoresReader = null;
 		Scanner expectedOutputScanner = null;
 		Scanner programOutputScanner = null;
+                Scanner scoresScanner = null;
 		
 		
 		try {
 			expectedOutputReader = new FileReader(expectedOutputFile);
 			programOutputReader = new FileReader(outputFile);
+                        scoresReader = new FileReader(scoresFile);
 			expectedOutputScanner = new Scanner(expectedOutputReader);
 			programOutputScanner = new Scanner(programOutputReader);
+                        scoresScanner = new Scanner(scoresReader);
 			String expectedOutputLine;
 			String programOutputLine;
+                        String scoresOutputLine;
 			
-			while(((programOutputLine = programOutputScanner.nextLine()) != null) && ((expectedOutputLine = expectedOutputScanner.nextLine()) != null )) {
+			while(((programOutputLine = programOutputScanner.nextLine()) != null) &&
+                                ((expectedOutputLine = expectedOutputScanner.nextLine()) != null ) &&
+                                ((scoresOutputLine = scoresScanner.nextLine()) != null )) {
 				if(!(programOutputLine.equals(expectedOutputLine))) {
 					failedTestCases++;
 				}
+                                else {
+                                        scoreobtained += Integer.parseInt(scoresOutputLine);
+                                }
 			}
 
 		} // try ends
@@ -171,6 +242,7 @@ public class Tester {
 			String assignment = fileName.substring(0, underscoreIndex);
 			String summary = runner.runUnitTests(registrationNumber);
 			writeResults(messageText, assignment, registrationNumber, failedTestCases, summary);
+                        updateTable(messageText, assignment, registrationNumber, scoreobtained);
 			
 			if(expectedOutputScanner != null) expectedOutputScanner.close();
 			if(programOutputScanner != null)  programOutputScanner.close();

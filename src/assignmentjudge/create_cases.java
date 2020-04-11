@@ -35,6 +35,7 @@ public class create_cases extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel6 = new javax.swing.JLabel();
+        exiticn = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -42,7 +43,11 @@ public class create_cases extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         expectedoutputarea = new javax.swing.JTextArea();
         casebtn = new javax.swing.JButton();
-        exiticn = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        scoresarea = new javax.swing.JTextArea();
+        jLabel4 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        expectedoutputarea2 = new javax.swing.JTextArea();
         backgroundlbl = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -52,23 +57,43 @@ public class create_cases extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Assignment Judge");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 0, -1, -1));
-        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 840, 10));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 0, -1, -1));
+        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 1090, 10));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI Light", 1, 24)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Test Generator");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 50, 180, 30));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 50, 180, 30));
+
+        exiticn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/close_1.png"))); // NOI18N
+        exiticn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                exiticnMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                exiticnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                exiticnMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                exiticnMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                exiticnMouseReleased(evt);
+            }
+        });
+        getContentPane().add(exiticn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 0, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Test Cases");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, 100, 29));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 120, 100, 29));
 
         jLabel2.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Expected Output");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 120, -1, 29));
+        jLabel2.setText("Corresponding Scores");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 120, -1, 29));
 
         testcasesarea.setColumns(20);
         testcasesarea.setForeground(new java.awt.Color(153, 153, 153));
@@ -95,7 +120,7 @@ public class create_cases extends javax.swing.JFrame {
         expectedoutputarea.setColumns(20);
         expectedoutputarea.setForeground(new java.awt.Color(153, 153, 153));
         expectedoutputarea.setRows(5);
-        expectedoutputarea.setText("#Output 1\n#Output 2\n#Output 3\n#Output 4\n.........\n.........\n.........\n.........\n.........\n#Output N");
+        expectedoutputarea.setText("Sum of scores should be 100\n#10\n#20\n#50\n#20");
         expectedoutputarea.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 expectedoutputareaFocusGained(evt);
@@ -106,7 +131,7 @@ public class create_cases extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(expectedoutputarea);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(468, 150, 350, 355));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 150, 270, 355));
 
         casebtn.setBackground(new java.awt.Color(0, 153, 153));
         casebtn.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
@@ -118,30 +143,47 @@ public class create_cases extends javax.swing.JFrame {
                 casebtnActionPerformed(evt);
             }
         });
-        getContentPane().add(casebtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 510, 250, 50));
+        getContentPane().add(casebtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 520, 250, 50));
 
-        exiticn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/close_1.png"))); // NOI18N
-        exiticn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                exiticnMouseClicked(evt);
+        scoresarea.setColumns(20);
+        scoresarea.setForeground(new java.awt.Color(153, 153, 153));
+        scoresarea.setRows(5);
+        scoresarea.setText("#Output 1\n#Output 2\n#Output 3\n#Output 4\n.........\n.........\n.........\n.........\n.........\n#Output N");
+        scoresarea.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                scoresareaFocusGained(evt);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                exiticnMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                exiticnMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                exiticnMousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                exiticnMouseReleased(evt);
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                scoresareaFocusLost(evt);
             }
         });
-        getContentPane().add(exiticn, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 0, -1, -1));
+        jScrollPane3.setViewportView(scoresarea);
+
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 150, 350, 355));
+
+        jLabel4.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Expected Output");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 120, -1, 29));
+
+        expectedoutputarea2.setColumns(20);
+        expectedoutputarea2.setForeground(new java.awt.Color(153, 153, 153));
+        expectedoutputarea2.setRows(5);
+        expectedoutputarea2.setText("#Output 1\n#Output 2\n#Output 3\n#Output 4\n.........\n.........\n.........\n.........\n.........\n#Output N");
+        expectedoutputarea2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                expectedoutputarea2FocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                expectedoutputarea2FocusLost(evt);
+            }
+        });
+        jScrollPane4.setViewportView(expectedoutputarea2);
+
+        getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 150, 350, 355));
 
         backgroundlbl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/background(bg3).png"))); // NOI18N
-        getContentPane().add(backgroundlbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 840, 570));
+        getContentPane().add(backgroundlbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1090, 570));
 
         pack();
         setLocationRelativeTo(null);
@@ -159,7 +201,9 @@ public class create_cases extends javax.swing.JFrame {
         }
         else{
             BuildTestCaseFile buildFiles = new BuildTestCaseFile();
-            boolean result = buildFiles.createFiles("testCaseFile.txt", "expectedOutputFile.txt", "programOutputFile.txt", "resultCSV.csv",testcasesarea.getText(), expectedoutputarea.getText());
+            // scores area and scores are file name passed by me
+            boolean result = buildFiles.createFiles("testCaseFile.txt", "expectedOutputFile.txt", 
+                    "programOutputFile.txt", "resultCSV.csv", "scoresFile.txt", testcasesarea.getText(), expectedoutputarea.getText(), scoresarea.getText());
             if(result){
                 JOptionPane.showMessageDialog(null, "Test Cases file Builded Successfully!");
             }
@@ -232,6 +276,38 @@ public class create_cases extends javax.swing.JFrame {
 
     }//GEN-LAST:event_exiticnMouseReleased
 
+    private void scoresareaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_scoresareaFocusGained
+    if(testcasesarea.getText().equals("Sum of scores should be 100\n" +
+                "#10\n" +
+                "#20\n" +
+                "#50\n" +
+                "#20"))
+    {
+        testcasesarea.setText("");
+        testcasesarea.setForeground(java.awt.Color.BLACK);
+    }
+    }//GEN-LAST:event_scoresareaFocusGained
+
+    private void scoresareaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_scoresareaFocusLost
+           if(testcasesarea.getText().trim().equals(""))
+        {
+            testcasesarea.setText("Sum of scores should be 100\n" +
+                "#10\n" +
+                "#20\n" +
+                "#50\n" +
+                "#20");
+            testcasesarea.setForeground(new java.awt.Color(153,153,153));
+        }
+    }//GEN-LAST:event_scoresareaFocusLost
+
+    private void expectedoutputarea2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_expectedoutputarea2FocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_expectedoutputarea2FocusGained
+
+    private void expectedoutputarea2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_expectedoutputarea2FocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_expectedoutputarea2FocusLost
+
     /**
      * @param args the command line arguments
      */
@@ -257,13 +333,18 @@ public class create_cases extends javax.swing.JFrame {
     private javax.swing.JButton casebtn;
     private javax.swing.JLabel exiticn;
     private javax.swing.JTextArea expectedoutputarea;
+    private javax.swing.JTextArea expectedoutputarea2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTextArea scoresarea;
     private javax.swing.JTextArea testcasesarea;
     // End of variables declaration//GEN-END:variables
 
