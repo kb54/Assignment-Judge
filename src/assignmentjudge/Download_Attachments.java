@@ -131,7 +131,7 @@ public class Download_Attachments extends javax.swing.JFrame {
 
         timefrominp.setForeground(new java.awt.Color(153, 153, 153));
         timefrominp.setText("HH:mm:ss");
-        timefrominp.setToolTipText("");
+        timefrominp.setToolTipText("24 hour format");
         timefrominp.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         timefrominp.setName(""); // NOI18N
         timefrominp.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -173,6 +173,7 @@ public class Download_Attachments extends javax.swing.JFrame {
 
         timetoinp.setForeground(new java.awt.Color(153, 153, 153));
         timetoinp.setText("HH:mm:ss");
+        timetoinp.setToolTipText("24 hour format");
         timetoinp.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 timetoinpFocusGained(evt);

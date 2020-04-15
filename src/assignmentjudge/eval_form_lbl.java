@@ -42,6 +42,7 @@ public class eval_form_lbl extends javax.swing.JFrame {
 
         statuslbl.setBackground(new java.awt.Color(153, 153, 153));
         statuslbl.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        statuslbl.setText("Evaluating.......................................................");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -62,7 +63,7 @@ public class eval_form_lbl extends javax.swing.JFrame {
         // used windowadapter so that it starts working as soon as it opens
         Tester test = new Tester();
         test.evaluate(statuslbl);
-        JOptionPane.showMessageDialog(null, "Evaluation Completed!");
+        JOptionPane.showMessageDialog(this, "Evaluation Completed!");
         this.dispose();
     }//GEN-LAST:event_formWindowOpened
 

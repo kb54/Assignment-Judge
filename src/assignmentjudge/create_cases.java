@@ -5,6 +5,7 @@
  */
 package assignmentjudge;
 
+import TesterCode.BuildTestCaseFile;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -15,6 +16,8 @@ import javax.swing.JOptionPane;
  */
 public class create_cases extends javax.swing.JFrame {
 
+    private int xpos;
+    private int ypos;
     /**
      * Creates new form Check_Assignment
      */
@@ -41,10 +44,10 @@ public class create_cases extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         testcasesarea = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
-        expectedoutputarea = new javax.swing.JTextArea();
+        scoresarea = new javax.swing.JTextArea();
         casebtn = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        scoresarea = new javax.swing.JTextArea();
+        expectedoutputarea = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         expectedoutputarea2 = new javax.swing.JTextArea();
@@ -117,19 +120,19 @@ public class create_cases extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 350, 355));
 
-        expectedoutputarea.setColumns(20);
-        expectedoutputarea.setForeground(new java.awt.Color(153, 153, 153));
-        expectedoutputarea.setRows(5);
-        expectedoutputarea.setText("Sum of scores should be 100\n#10\n#20\n#50\n#20");
-        expectedoutputarea.addFocusListener(new java.awt.event.FocusAdapter() {
+        scoresarea.setColumns(20);
+        scoresarea.setForeground(new java.awt.Color(153, 153, 153));
+        scoresarea.setRows(5);
+        scoresarea.setText("Sum of scores should be 100\n#10\n#20\n#50\n#20");
+        scoresarea.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                expectedoutputareaFocusGained(evt);
+                scoresareaFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                expectedoutputareaFocusLost(evt);
+                scoresareaFocusLost(evt);
             }
         });
-        jScrollPane2.setViewportView(expectedoutputarea);
+        jScrollPane2.setViewportView(scoresarea);
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 150, 270, 355));
 
@@ -145,19 +148,19 @@ public class create_cases extends javax.swing.JFrame {
         });
         getContentPane().add(casebtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 520, 250, 50));
 
-        scoresarea.setColumns(20);
-        scoresarea.setForeground(new java.awt.Color(153, 153, 153));
-        scoresarea.setRows(5);
-        scoresarea.setText("#Output 1\n#Output 2\n#Output 3\n#Output 4\n.........\n.........\n.........\n.........\n.........\n#Output N");
-        scoresarea.addFocusListener(new java.awt.event.FocusAdapter() {
+        expectedoutputarea.setColumns(20);
+        expectedoutputarea.setForeground(new java.awt.Color(153, 153, 153));
+        expectedoutputarea.setRows(5);
+        expectedoutputarea.setText("#Output 1\n#Output 2\n#Output 3\n#Output 4\n.........\n.........\n.........\n.........\n.........\n#Output N");
+        expectedoutputarea.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                scoresareaFocusGained(evt);
+                expectedoutputareaFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                scoresareaFocusLost(evt);
+                expectedoutputareaFocusLost(evt);
             }
         });
-        jScrollPane3.setViewportView(scoresarea);
+        jScrollPane3.setViewportView(expectedoutputarea);
 
         getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 150, 350, 355));
 
@@ -183,6 +186,16 @@ public class create_cases extends javax.swing.JFrame {
         getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 150, 350, 355));
 
         backgroundlbl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/background(bg3).png"))); // NOI18N
+        backgroundlbl.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                backgroundlblMouseDragged(evt);
+            }
+        });
+        backgroundlbl.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                backgroundlblMousePressed(evt);
+            }
+        });
         getContentPane().add(backgroundlbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1090, 570));
 
         pack();
@@ -193,43 +206,51 @@ public class create_cases extends javax.swing.JFrame {
         // revoking the rights from the user to input the file names(making file names default)
         if(testcasesarea.getText().equals("Enter number of Test Cases\n#Case 1\n#Case 2"
             + "\n#Case 3\n#Case 4\n.......\n.......\n.......\n.......\n#Case N\n\n\n")){
-            JOptionPane.showMessageDialog(null, "Please Enter Test Cases!");
+            JOptionPane.showMessageDialog(this, "Please Enter Test Cases!");
         }
-        else if(expectedoutputarea.getText().equals("#Output 1\n#Output 2\n#Output 3\n#Output 4\n........."
-            + "\n.........\n.........\n.........\n.........\n#Output N")){
-            JOptionPane.showMessageDialog(null, "Please Enter Respective Expected Outputs!");
+        else if(expectedoutputarea.getText().equals("#Output 1\n" +"#Output 2\n" +"#Output 3\n" +"#Output 4\n" +".........\n" +".........\n" +".........\n" +".........\n" +".........\n" +"#Output N")){
+            JOptionPane.showMessageDialog(this, "Please Enter Respective Expected Outputs!");
+        }
+        else if(scoresarea.getText().equals("Sum of scores should be 100\n" +"#10\n" +"#20\n" +"#50\n" +"#20")) {
+            JOptionPane.showMessageDialog(this, "Please Enter Respective Scores!");
         }
         else{
             BuildTestCaseFile buildFiles = new BuildTestCaseFile();
             // scores area and scores are file name passed by me
             boolean result = buildFiles.createFiles("testCaseFile.txt", "expectedOutputFile.txt", 
-                    "programOutputFile.txt", "resultCSV.csv", "scoresFile.txt", testcasesarea.getText(), expectedoutputarea.getText(), scoresarea.getText());
+                    "programOutputFile.txt", "scoresFile.txt", "resultCSV.csv", testcasesarea.getText(), expectedoutputarea.getText(), scoresarea.getText());
             if(result){
-                JOptionPane.showMessageDialog(null, "Test Cases file Builded Successfully!");
+                JOptionPane.showMessageDialog(this, "Test Cases file Builded Successfully!");
             }
             else{
-                JOptionPane.showMessageDialog(null, "Error in building files!");
+                JOptionPane.showMessageDialog(this, "Error in building files!");
             }
         }
     }//GEN-LAST:event_casebtnActionPerformed
 
-    private void expectedoutputareaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_expectedoutputareaFocusLost
-        if(expectedoutputarea.getText().trim().equals(""))
+    private void scoresareaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_scoresareaFocusLost
+        if(scoresarea.getText().trim().equals(""))
         {
-            expectedoutputarea.setText("#Output 1\n#Output 2\n#Output 3\n#Output 4\n........."
-                + "\n.........\n.........\n.........\n.........\n#Output N");
-            expectedoutputarea.setForeground(new java.awt.Color(153,153,153));
+            scoresarea.setText("Sum of scores should be 100\n" +
+            "#10\n" +
+            "#20\n" +
+            "#50\n" +
+            "#20");
+            scoresarea.setForeground(new java.awt.Color(153,153,153));
         }
-    }//GEN-LAST:event_expectedoutputareaFocusLost
+    }//GEN-LAST:event_scoresareaFocusLost
 
-    private void expectedoutputareaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_expectedoutputareaFocusGained
-        if(expectedoutputarea.getText().equals("#Output 1\n#Output 2\n#Output 3\n#Output 4\n........."
-            + "\n.........\n.........\n.........\n.........\n#Output N"))
+    private void scoresareaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_scoresareaFocusGained
+    if(scoresarea.getText().equals("Sum of scores should be 100\n" +
+                "#10\n" +
+                "#20\n" +
+                "#50\n" +
+                "#20"))
     {
-        expectedoutputarea.setText("");
-        expectedoutputarea.setForeground(java.awt.Color.BLACK);
-        }
-    }//GEN-LAST:event_expectedoutputareaFocusGained
+        scoresarea.setText("");
+        scoresarea.setForeground(java.awt.Color.BLACK);
+    }
+    }//GEN-LAST:event_scoresareaFocusGained
 
     private void testcasesareaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_testcasesareaMouseClicked
         
@@ -276,37 +297,42 @@ public class create_cases extends javax.swing.JFrame {
 
     }//GEN-LAST:event_exiticnMouseReleased
 
-    private void scoresareaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_scoresareaFocusGained
-    if(testcasesarea.getText().equals("Sum of scores should be 100\n" +
-                "#10\n" +
-                "#20\n" +
-                "#50\n" +
-                "#20"))
+    private void expectedoutputareaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_expectedoutputareaFocusGained
+    if(expectedoutputarea.getText().equals("#Output 1\n#Output 2\n#Output 3\n#Output 4\n........."
+            + "\n.........\n.........\n.........\n.........\n#Output N"))
     {
-        testcasesarea.setText("");
-        testcasesarea.setForeground(java.awt.Color.BLACK);
+        expectedoutputarea.setText("");
+        expectedoutputarea.setForeground(java.awt.Color.BLACK);
     }
-    }//GEN-LAST:event_scoresareaFocusGained
+    }//GEN-LAST:event_expectedoutputareaFocusGained
 
-    private void scoresareaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_scoresareaFocusLost
-           if(testcasesarea.getText().trim().equals(""))
+    private void expectedoutputareaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_expectedoutputareaFocusLost
+    if(expectedoutputarea.getText().trim().equals(""))
         {
-            testcasesarea.setText("Sum of scores should be 100\n" +
-                "#10\n" +
-                "#20\n" +
-                "#50\n" +
-                "#20");
-            testcasesarea.setForeground(new java.awt.Color(153,153,153));
+            expectedoutputarea.setText("#Output 1\n#Output 2\n#Output 3\n#Output 4\n........."
+                + "\n.........\n.........\n.........\n.........\n#Output N");
+            expectedoutputarea.setForeground(new java.awt.Color(153,153,153));
         }
-    }//GEN-LAST:event_scoresareaFocusLost
+    }//GEN-LAST:event_expectedoutputareaFocusLost
 
     private void expectedoutputarea2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_expectedoutputarea2FocusGained
         // TODO add your handling code here:
     }//GEN-LAST:event_expectedoutputarea2FocusGained
 
     private void expectedoutputarea2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_expectedoutputarea2FocusLost
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_expectedoutputarea2FocusLost
+
+    private void backgroundlblMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backgroundlblMousePressed
+        xpos = evt.getX();
+        ypos = evt.getY();
+    }//GEN-LAST:event_backgroundlblMousePressed
+
+    private void backgroundlblMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backgroundlblMouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xpos, y - ypos);
+    }//GEN-LAST:event_backgroundlblMouseDragged
 
     /**
      * @param args the command line arguments

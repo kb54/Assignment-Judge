@@ -18,7 +18,7 @@ public class Browse {
  
     
      /**
-    * @param URI stands for "Uniform Resource Identifier (superset of URL)"
+    * @param URI stands for "Uniform Resource Identifier (superset of URI)"
     * It can be name or address
     */
     private static boolean openWebpage(URI uri) {

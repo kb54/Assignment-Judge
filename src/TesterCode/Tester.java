@@ -2,7 +2,6 @@ package TesterCode;
 
 //import UnitTestRunner;
 import assignmentjudge.AssignmentJudge;
-import assignmentjudge.BuildTestCaseFile;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.io.File;
@@ -110,6 +109,8 @@ public class Tester {
 			csvWriter.append(",");
 			csvWriter.append("Failed test cases");
 			csvWriter.append(",");
+                        csvWriter.append("Score obtained(out of 100)");
+			csvWriter.append(",");
 			csvWriter.append("Unit testing summary (Failed assertions reported as (expected value != output value))");
 			csvWriter.append("\n");
 			csvWriter.flush();
@@ -122,7 +123,7 @@ public class Tester {
 	}
         
 	
-	private void writeResults(JLabel messageText, String assignment, String registrationNumber, int failedTestCases, String summary) {
+	private void writeResults(JLabel messageText, String assignment, String registrationNumber, int failedTestCases, int scoreobtained, String summary) {
 		try {
 			FileWriter csvWriter = new FileWriter(CSVResultFile, true);
 			csvWriter.append("" + assignment);
@@ -130,6 +131,8 @@ public class Tester {
 			csvWriter.append("" + registrationNumber);
 			csvWriter.append(",");
 			csvWriter.append("" + failedTestCases);
+			csvWriter.append(",");
+                        csvWriter.append("" + scoreobtained);
 			csvWriter.append(",");
 			csvWriter.append(summary);
 			csvWriter.append("\n");
@@ -169,17 +172,22 @@ public class Tester {
                     if(!find_record) {
                         String query_insert = "Insert into report values('"+registrationNumber+"', '"+idx_str+"', '"+scoreobtained+"');";
                         st.executeUpdate(query_insert);
-                        messageText.setText("Results stored successfully");
+                        st.close();
                     }
                     else {
-                        String query_update = "Update report set score_obtained = score_obtained + ?, assignment_no = ? where reg_no = ?";
-                        try (PreparedStatement stmt = con.prepareStatement(query_update)) {
+                        String query_update = "Update report set score_obtained = score_obtained + ?, assignment_no = CONCAT(assignment_no, ', ', ?) where reg_no = ?";
+                        try (Connection conn = (Connection) DriverManager.getConnection(url + dbName, sqlUsername, sqlPassword);
+                                PreparedStatement stmt = conn.prepareStatement(query_update);) {
                             stmt.setInt(1, scoreobtained);
-                            stmt.setString(2, ", " + idx_str);
+                            stmt.setString(2, idx_str);
                             stmt.setString(3, registrationNumber);
                             stmt.executeUpdate();
+                            conn.close();
+                            stmt.close();
+                            st.close();
                         }
                     }
+                    messageText.setText("Results stored successfully");
                     con.close();
                 }
                 catch(SQLException e) {
@@ -241,7 +249,7 @@ public class Tester {
 			String registrationNumber = fileName.substring(underscoreIndex+1);
 			String assignment = fileName.substring(0, underscoreIndex);
 			String summary = runner.runUnitTests(registrationNumber);
-			writeResults(messageText, assignment, registrationNumber, failedTestCases, summary);
+			writeResults(messageText, assignment, registrationNumber, failedTestCases, scoreobtained, summary);
                         updateTable(messageText, assignment, registrationNumber, scoreobtained);
 			
 			if(expectedOutputScanner != null) expectedOutputScanner.close();
@@ -254,8 +262,6 @@ public class Tester {
 			catch(Exception e) { // Do nothing
 				}
 			} // finally ends
-		} // function ends
-		 
-		
+		} // function end
 	}
 	

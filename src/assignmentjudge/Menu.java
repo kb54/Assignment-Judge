@@ -35,12 +35,14 @@ public class Menu extends javax.swing.JFrame {
     private String password;
     public Menu() {
         initComponents();
+        backgroundlbl.setFocusable(true);
     }
     public Menu(String usrname, String pass)
     {
         this.username = usrname;
         this.password = pass;
         initComponents();
+        backgroundlbl.setFocusable(true);
         
     }
     /**

@@ -1,5 +1,6 @@
-package assignmentjudge;
+package TesterCode;
 
+import assignmentjudge.AssignmentJudge;
 import java.io.*;
 
 //import javax.swing.JLabel;
@@ -24,7 +25,7 @@ public class BuildTestCaseFile {
                 
         public static String getscoresFileName() {return scoresFileName;}
 	@SuppressWarnings("resource")
-	boolean createFiles(String testCaseFileName, String expectedOutputFileName, String programOutputFileName, String scoresFileName, 
+	public boolean createFiles(String testCaseFileName, String expectedOutputFileName, String programOutputFileName, String scoresFileName, 
                 String resultCSVFileName ,String testCases, String expectedOutputs, String scores) {
 		BuildTestCaseFile.testCaseFileName = testCaseFileName;
 		BuildTestCaseFile.expectedOutputFileName = expectedOutputFileName;

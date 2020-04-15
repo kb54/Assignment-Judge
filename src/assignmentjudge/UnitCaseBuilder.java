@@ -160,6 +160,8 @@ public class UnitCaseBuilder extends javax.swing.JFrame {
 
         backgroundlbl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/background(bg).png"))); // NOI18N
         getContentPane().add(backgroundlbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 510));
+
+        messageLabel.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         getContentPane().add(messageLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 500, 280, 20));
 
         pack();
@@ -190,7 +192,6 @@ public class UnitCaseBuilder extends javax.swing.JFrame {
     }//GEN-LAST:event_exiticnMouseReleased
 
     private void buildbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buildbtnActionPerformed
-        javax.swing.JLabel messageLabel = new javax.swing.JLabel();
         if(unitTestCaseField.getText().equals("For object foo(int a, int b) Enter as: 5, 6")){
             JOptionPane.showMessageDialog(this, "Unit Test Case Field can't be empty!");
         }
